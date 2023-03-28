@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 60%; height: 500px;
+            margin: 0 auto;
+            border: solid red 2px;
+            display: flex;
+        }
+        .titlesCol {
+            width: 25%;
+            border: solid green 2px;
+            display: flex;
+            flex-direction: column;            
+        }
+        .photosCol {
+            width: 70%;
+            border: solid green 2px;            
+        }
+        .oneNews {
+            cursor: pointer;
+            font-size: 36px;
+            border-bottom: yellow solid 3px;
+            transition: all 0.7s;
+        }
+        .highlight {
+            background-color: green;
+            color: white;
+            transition: all 0.7s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="titlesCol">
+            <div class="oneNews">news number 001</div>
+            <div class="oneNews">news number 002</div>
+            <div class="oneNews">news number 003</div>
+            <div class="oneNews">news number 004</div>
+            <div class="oneNews">news number 005</div>
+        </div>
+        <div class="photosCol">
+            <img src="img/lunch-01.jpg" width="100%" alt="">
+        </div>
+    </div>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus repellat, omnis aliquid necessitatibus vitae illo, facilis at quis ducimus nemo blanditiis odit dolorum quasi natus atque quas deserunt possimus porro.
+    </p>
+
+    <script>
+        var news = document.querySelectorAll(".oneNews");
+        news[0].classList.add("highlight");
+        var newPhotos = ["lunch-01.jpg", "lunch-02.jpg", "lunch-03.jpg", "lunch-04.jpg", "lunch-05.jpg"];
+        var currentNews = 0;
+        var newInterval = setInterval(slideAction, 1700);
+
+        function slideAction() {
+            if(currentNews == 4){
+                currentNews = 0;
+            }
+            else {
+                currentNews++;
+            }            
+            document.querySelector(".photosCol img").setAttribute("src", "img/" + newPhotos[currentNews]);
+            news[currentNews].classList.add("highlight");
+            if(currentNews == 0){
+                news[news.length - 1].classList.remove("highlight");
+            }else {
+                news[currentNews - 1].classList.remove("highlight");
+            }            
+        }
+
+        for(let i=0; i<news.length; i++)
+            {
+                news[i].onclick = function (){
+                    news[currentNews].classList.remove("highlight");
+                    news[i].classList.add("highlight");
+                    document.querySelector(".photosCol img").setAttribute("src","img/" + newPhotos[i]);
+                    currentNews = i;
+                    clearInterval(newInterval);
+
+                    
+                }
+            }
+
+    </script>
+</body>
+</html>
